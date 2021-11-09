@@ -8,29 +8,12 @@ $(document).ready(function () {
     e.preventDefault()
 
     const { brand, initialYear, finalYear, initialPrice, finalPrice } = getFieldValues()
-    const page = window.location.href.split('#')[1] !== '' ? parseInt(window.location.href.split('#')[1]) : 0
 
-    getAdvertisements({ brand, initialYear, finalYear, initialPrice, finalPrice, page })
+    getAdvertisements({ brand, initialYear, finalYear, initialPrice, finalPrice, page: 0 })
   })
 
   $('#page').on('click', function (e) {
-    console.log(e.target.getAttribute('value'))
-    console.log('caguei')
-
-    const currentPageValue = e.target.getAttribute('value')
-
-    let page = window.location.href.split('#')[1] !== '' ? parseInt(window.location.href.split('#')[1]) : 0
-
-    if (page > 0 && currentPageValue === 'Previous') {
-      page = page - 1
-      const newWindow = window.location.href.replace(window.location.href.charAt(window.location.href.length - 1), page)
-      console.log(newWindow)
-      window.location.href = newWindow
-    }
-
-    if (page > 0 && currentPageValue === 'Next') {
-      page += page
-    }
+    const page = e.target.getAttribute('value')
     const { brand, initialYear, finalYear, initialPrice, finalPrice } = getFieldValues()
 
     getAdvertisements({ brand, initialYear, finalYear, initialPrice, finalPrice, page })
@@ -104,7 +87,7 @@ function getAdvertisements(request) {
          </a>
          <h1>${item.title}</h1>
          <p>${item.description}</p>
-         <h1>${item.value}</h1>
+         <h1 class="price">${item.value}</h1>
          <a href=${item.link} target="_blank">Ver anúncio</a>
          </div>
          `

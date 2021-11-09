@@ -12,10 +12,13 @@ module.exports = {
       //Pesquisa na seminovos
       var url = createUrlSemiNovos('https://seminovos.com.br', req.query);
       var advertisements = await getAdvertisementsSeminovos(url);
-
+      console.log({ url });
       //Pesquisa Autonline
       url = createUrlAuto('https://busca.autoline.com.br', req.query);
-      advertisements = advertisements.concat(await getAdvertisementsAutoline(url));
+      console.log({ url });
+      advertisements = advertisements.concat(
+        await getAdvertisementsAutoline(url)
+      );
 
       //Ordena a pesquisa por valor do veículo
       advertisements.sort(function (a, b) {
@@ -39,10 +42,10 @@ module.exports = {
         message: 'Internal Server Error'
       });
     }
-  },
+  }
 
   //Não esta sendo utilizado
- /* async findAuto(req, res) {
+  /* async findAuto(req, res) {
     try {
       if (!req.query.brand) {
         throw new Error('Bad request');
